@@ -16,11 +16,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($order->products as $product)
                 <tr>
                     <td>
-                        <a href="http://internet-shop.tmweb.ru/mobiles/htc_one_s">
+                        <a href="{{route('product',['category'=>$product->category->code,'product'=>$product->code])}}">
                             <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/htc_one_s.png">
-                            HTC One S
+                            {{$product->name}}
                         </a>
                     </td>
                     <td><span class="badge">1</span>
@@ -31,17 +32,18 @@
                                 </button>
                                 <input type="hidden" name="_token" value="T0b7UBWkEgdN8CanY4T0VmZoLhfm94ucAqdMisqN">
                             </form>
-                            <form action="http://internet-shop.tmweb.ru/basket/add/3" method="POST">
-                                <button type="submit" class="btn btn-success" href="">
+                            <form action="{{route('basket_add',$product)}}" method="POST">
+                                <button type="submit" class="btn btn-success" >
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </button>
-                                <input type="hidden" name="_token" value="T0b7UBWkEgdN8CanY4T0VmZoLhfm94ucAqdMisqN">
+                                @csrf
                             </form>
                         </div>
                     </td>
-                    <td>12490 ₽</td>
-                    <td>12490 ₽</td>
+                    <td>{{$product->price}} $</td>
+                    <td>{{$product->price}} $</td>
                 </tr>
+                @endforeach
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
                     <td>12490 ₽</td>
