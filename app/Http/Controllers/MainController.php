@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
     public function index(){
-        return view('index');
+        $products = Product::get();
+        return view('index',compact('products'));
     }
     public function category($code)
     {
         $category = Category::where('code',$code)->first();
-
-        return view('category',['category'=>$category]);
+        return view('category',compact('category'));
     }
     public function basket(){
         return view('basket');
@@ -28,8 +29,10 @@ class MainController extends Controller
         $categories =Category::get();
         return view('categories',compact('categories'));
     }
-    public function product($product = null)
+    public function product($category, $product = null)
     {
-        return view('product',['product'=>$product]);
+
+        $p = Product::where('code',$product)->first();
+        return view('product',['product'=>$p]);
     }
 }

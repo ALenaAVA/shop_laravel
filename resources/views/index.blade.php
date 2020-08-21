@@ -34,9 +34,9 @@
             </div>
         </form>
         <div class="row">
-            @for($i=0;$i<6;$i++)
-                @include('card')
-            @endfor
+            @foreach($products as $product)
+                @include('card',$product)
+            @endforeach
         </div>
         <nav>
             <ul class="pagination">

@@ -2,15 +2,15 @@
 @section('title',$category->name)
 @section('content')
     <div class="starter-template">
-        <h1>{{$category->name}} </h1>
+        <h1>{{$category->name}} {{$category->products->count()}}</h1>
 
         <p>
             {{$category->description}}
         </p>
         <div class="row">
-            @for($i = 0;$i<5;$i++)
-                @include('card')
-            @endfor
+            @foreach($category->products as $product)
+                @include('card',$product)
+            @endforeach
         </div>
     </div>
 @endsection
