@@ -24,22 +24,22 @@
                 <li ><a href="/">Все товары</a></li>
                 <li class="active"><a href="/categories">Категории</a>
                 </li>
-                <li ><a href="http://internet-shop.tmweb.ru/basket">В корзину</a></li>
-                <li><a href="http://internet-shop.tmweb.ru/reset">Сбросить проект в начальное состояние</a></li>
-                <li><a href="http://internet-shop.tmweb.ru/locale/en">en</a></li>
+                <li ><a href="/basket">В корзину</a></li>
+                <li><a href="/reset">Сбросить проект в начальное состояние</a></li>
+                <li><a href="/locale/en">en</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">₽<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="http://internet-shop.tmweb.ru/currency/RUB">₽</a></li>
-                        <li><a href="http://internet-shop.tmweb.ru/currency/USD">$</a></li>
-                        <li><a href="http://internet-shop.tmweb.ru/currency/EUR">€</a></li>
+                        <li><a href="/currency/RUB">₽</a></li>
+                        <li><a href="/currency/USD">$</a></li>
+                        <li><a href="/currency/EUR">€</a></li>
                     </ul>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://internet-shop.tmweb.ru/login">Войти</a></li>
+                <li><a href="/login">Войти</a></li>
 
             </ul>
         </div>
@@ -49,31 +49,15 @@
 <div class="container">
     <div class="starter-template">
         <div class="panel">
-            <a href="/mobiles">
-                <img src="http://internet-shop.tmweb.ru/storage/categories/mobile.jpg">
-                <h2>Мобильные телефоны</h2>
+            @foreach($categories as $category)
+            <a href="/{{$category->code}}">
+                <img src="{{$category->image}}">
+                <h2>{{$category->name}}</h2>
             </a>
             <p>
-                В этом разделе вы найдёте самые популярные мобильные телефонамы по отличным ценам!
+                {{$category->description}}
             </p>
-        </div>
-        <div class="panel">
-            <a href="/portable">
-                <img src="http://internet-shop.tmweb.ru/storage/categories/portable.jpg">
-                <h2>Портативная техника</h2>
-            </a>
-            <p>
-                Раздел с портативной техникой.
-            </p>
-        </div>
-        <div class="panel">
-            <a href="/appliances">
-                <img src="http://internet-shop.tmweb.ru/storage/categories/appliance.jpg">
-                <h2>Бытовая техника</h2>
-            </a>
-            <p>
-                Раздел с бытовой техникой
-            </p>
+            @endforeach
         </div>
     </div>
 </div>
