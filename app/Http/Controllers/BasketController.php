@@ -8,28 +8,28 @@ use Illuminate\Http\Request;
 
 class BasketController extends Controller
 {
+
     public function basket(){
-        $orderId = session('orderId');
-        if(!is_null($orderId)){
-            $order = Order::findOrFail($orderId);
-        }
+        $order = Order::getOrder();
+
         return view('basket',compact('order'));
     }
+
     public function basketPlace(){
         return view('order');
     }
 
     public function basketAdd($productId){
-        $orderId = session('orderId');
-        if(is_null($orderId)){
-            $order = Order::create();
-            //dump($order);
-            session(['orderId'=>$order->id]);
-        }else{
-            $order = Order::find($orderId);
-        }
+        $order = Order::getOrder();
 
         $order->products()->attach($productId);
-        return view('basket',compact('order'));
+        return redirect()->route('basket');
+    }
+
+    public function basketRemove($productId){
+        $order = Order::getOrder();
+
+        $order->products()->detach($productId);
+        return redirect()->route('basket');
     }
 }
