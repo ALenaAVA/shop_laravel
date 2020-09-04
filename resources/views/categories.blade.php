@@ -1,7 +1,6 @@
-@extends('master')
+@extends('layouts.master')
 @section('title','Категории')
 @section('content')
-    <div class="starter-template">
         <div class="panel">
             @foreach($categories as $category)
             <a href="{{route('category',$category->code)}}">
@@ -13,5 +12,4 @@
             </p>
             @endforeach
         </div>
-    </div>
 @endsection

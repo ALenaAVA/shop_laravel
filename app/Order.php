@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
     }
 
     public static function getOrder(){
@@ -20,5 +20,24 @@ class Order extends Model
         }
 
         return $order;
+    }
+
+    public static function clearOrder(){
+        session()->forget('orderId');
+    }
+    public function saveOrder($name,$phone){
+        $this->name = $name;
+        $this->phone = $phone;
+        $this->status = 1;
+        $this->save();
+    }
+
+
+    public function getTotalPrice(){
+        $totalPrice = 0;
+        foreach ($this->products as $product){
+            $totalPrice += $product->getPriceForCount();
+        }
+        return $totalPrice;
     }
 }
