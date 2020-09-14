@@ -1,8 +1,10 @@
 <?php
+Auth::routes();
 
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'MainController@index')->name('index');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout', 'Auth\LoginController@logout')->name('loguot');
 
 Route::get('/categories','MainController@categories')->name('categories');
 Route::get('/basket','BasketController@basket')->name('basket');
@@ -14,6 +16,4 @@ Route::post('/basket/remove/{id}','BasketController@basketRemove')->name('basket
 Route::get('/{category}','MainController@category')->name('category');
 Route::get('/{category}/{product?}', 'MainController@product')->name('product');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

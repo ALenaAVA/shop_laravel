@@ -40,8 +40,13 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login">Войти</a></li>
-
+                @guest()
+                    <li><a href="/login">Аккаунт</a></li>
+                @endguest
+                @auth()
+                    <li><a href="/login">Аккаунт</a></li>
+                    <li><a href="/logout">Выйти</a></li>
+                @endauth
             </ul>
         </div>
     </div>
