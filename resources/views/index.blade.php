@@ -3,6 +3,8 @@
 @section('content')
     @if(session()->has('success'))
         <p class="alert alert-success">{{session()->get('success')}}</p>
+    @elseif(session()->has('warning'))
+        <p class="alert alert-warning">{{session()->get('warning')}}</p>
     @endif
     <h1>Все товары</h1>
     <form method="GET" action="http://internet-shop.tmweb.ru">

@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Админка: Авторизация</title>
+    <title>Админка: @yield('title')</title>
 
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/app.js" defer></script>
 
     <!-- Fonts -->
@@ -17,40 +18,70 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/admin.css" rel="stylesheet">
+{{--    <link href="/css/admin.css" rel="stylesheet">--}}
 </head>
 <body>
 <div id="app">
     <nav class="navbar navbar-default navbar-expand-md navbar-light navbar-laravel">
         <div class="container">
-            <a class="navbar-brand" href="{{route('index')}}">
+            <a class="navbar-brand" href="{{ route('index') }}">
                 Вернуться на сайт
             </a>
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
+                    <li><a
+                            href="http://laravel-diplom-1.rdavydov.ru/admin/categories">Категории</a></li>
+                    <li><a href="http://laravel-diplom-1.rdavydov.ru/admin/products">Товары</a>
+                    </li>
+                    <li><a href="{{route('home')}}">Заказы</a></li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    @guest()
+                @guest
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('login')}}">Войти</a>
+                            <a class="nav-link" href="{{ route('login') }}">Войти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('register')}}">Зарегистрироваться</a>
+                            <a class="nav-link" href="{{ route('register') }}">Зарегистрироваться</a>
                         </li>
-                    @endguest
-                    @auth()
-                        <li class="nav-item"><a href="/logout">Выйти</a></li>
-                    @endauth
-                </ul>
+                    </ul>
+                @endguest
 
+                @auth
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout')}}" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false" v-pre>
+                                Администратор
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout')}}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    Выйти
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout')}}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                @endauth
             </div>
         </div>
     </nav>
 
     <div class="py-4">
-            @yield('content')
+        <div class="container">
+            <div class="row justify-content-center">
+                @yield('content')
+            </div>
+        </div>
     </div>
 </div>
 </body>
