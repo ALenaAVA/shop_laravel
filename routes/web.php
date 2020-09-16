@@ -3,10 +3,14 @@ Auth::routes();
 
 Route::get('/', 'MainController@index')->name('index');
 
-Route::group(['middleware'=>'auth'],function (){
+Route::group(['middleware'=>'auth',
+    'namespace'=>'Admin',
+    'prefix'=>'admin'
+    ],function (){
     Route::group(['middleware'=>'is_admin'],function (){
         Route::get('/orders', 'HomeController@index')->name('home');
     });
+    Route::resource('categories','CategoryController');
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
