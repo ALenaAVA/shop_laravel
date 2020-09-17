@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td>Картинка</td>
-                <td><img src="{{ Storage::url($product->image) }}" height="240px"></td>
+                <td><img src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}" height="240px"></td>
             </tr>
             <tr>
                 <td>Категория</td>

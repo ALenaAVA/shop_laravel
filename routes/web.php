@@ -11,6 +11,7 @@ Route::group(['middleware'=>'auth',
         Route::get('/orders', 'HomeController@index')->name('home');
     });
     Route::resource('categories','CategoryController');
+    Route::resource('products','ProductController');
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

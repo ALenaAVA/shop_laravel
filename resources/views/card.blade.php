@@ -3,7 +3,7 @@
         <div class="labels">
 
         </div>
-        <img src="http://internet-shop.tmweb.ru/storage/products/iphone_x_silver.jpg" alt="{{$product->name}}">
+        <img src="{{Storage::url($product->image)}}" alt="{{$product->name}}">
         <div class="caption">
             <h3>{{$product->name}}</h3>
             <p>{{$product->price}} $</p>
@@ -14,7 +14,7 @@
                    class="btn btn-default" role="button">Подробнее</a>
                 @csrf
             </form>
-            </p>
+            <p></p>
         </div>
     </div>
 </div>

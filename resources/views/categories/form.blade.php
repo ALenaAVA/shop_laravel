@@ -29,6 +29,9 @@
                 <div class="input-group row">
                     <label for="code" class="col-sm-2 col-form-label">Код: </label>
                     <div class="col-sm-6">
+                        @error('code')
+                        <p class="alert alert-danger">{{$message}}</p>
+                        @enderror
                         <input type="text" class="form-control" name="code" id="code"
                                value="@isset($category){{ $category->code }}@endisset">
                     </div>
@@ -37,6 +40,9 @@
                 <div class="input-group row">
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6">
+                        @error('name')
+                        <p class="alert alert-danger">{{$message}}</p>
+                        @enderror
                         <input type="text" class="form-control" name="name" id="name"
                                value="@isset($category){{ $category->name }}@endisset">
                     </div>
@@ -45,6 +51,9 @@
                 <div class="input-group row">
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
+                        @error('description')
+                            <p class="alert alert-danger">{{$message}}</p>
+                        @enderror
 							<textarea name="description" id="description" cols="72"
                                       rows="7">@isset($category){{ $category->description }}@endisset</textarea>
                     </div>

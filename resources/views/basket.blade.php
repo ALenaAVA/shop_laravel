@@ -24,7 +24,7 @@
                 <tr>
                     <td>
                         <a href="{{route('product',['category'=>$product->category->code,'product'=>$product->code])}}">
-                            <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/htc_one_s.png">
+                            <img height="56px" src="{{Storage::url($product->image)}}">
                             {{$product->name}}
                         </a>
                     </td>
