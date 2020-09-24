@@ -2,17 +2,28 @@
 Auth::routes();
 
 Route::get('/', 'MainController@index')->name('index');
-
-Route::group(['middleware'=>'auth',
-    'namespace'=>'Admin',
-    'prefix'=>'admin'
-    ],function (){
-    Route::group(['middleware'=>'is_admin'],function (){
-        Route::get('/orders', 'HomeController@index')->name('home');
+//Route::middleware(['auth'])->group(function (){
+    Route::group([
+        'namespace'=>'Person',
+        'prefix'=>'person'
+    ], function (){
+        Route::get('/orders', 'OrderController@index')->name('orders.index');
+        Route::get('/orders/{order}', 'OrderController@show')->name('person.orders.show');
     });
-    Route::resource('categories','CategoryController');
-    Route::resource('products','ProductController');
-});
+
+    Route::group([
+        'namespace'=>'Admin',
+        'prefix'=>'admin'
+    ],function (){
+        Route::group(['middleware'=>'is_admin'],function (){
+            Route::get('/orders', 'HomeController@index')->name('home');
+            Route::get('/orders/{order}', 'HomeController@show')->name('orders.show');
+        });
+        Route::resource('categories','CategoryController');
+        Route::resource('products','ProductController');
+    });
+//});
+
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

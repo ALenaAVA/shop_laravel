@@ -37,7 +37,7 @@
                     <td>
                         <div class="btn-group" role="group">
                             <a class="btn btn-success" type="button"
-                               href="#">Открыть</a>
+                               href="{{route('orders.show')}}">Открыть</a>
                         </div>
                     </td>
                 </tr>

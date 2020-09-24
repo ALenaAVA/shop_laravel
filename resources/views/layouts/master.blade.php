@@ -41,10 +41,14 @@
 
             <ul class="nav navbar-nav navbar-right">
                 @guest()
-                    <li><a href="/login">Аккаунт</a></li>
+                    <li><a href="/login">Войти</a></li>
                 @endguest
                 @auth()
-                    <li><a href="/login">Аккаунт</a></li>
+                    @admin
+                    <li><a href="{{route('home')}}">Панель администратора</a></li>
+                    @else
+                    <li><a href="{{route('orders.index')}}">Мои заказы</a></li>
+                    @endadmin
                     <li><a href="/logout">Выйти</a></li>
                 @endauth
             </ul>
