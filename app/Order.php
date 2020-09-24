@@ -12,13 +12,14 @@ class Order extends Model
 
     public static function getOrder(){
         $orderId = session('orderId');
+
         if(is_null($orderId)){
             $order = Order::create();
             session(['orderId'=> $order->id]);
         }else{
             $order = Order::find($orderId);
         }
-
+//dd($order);
         return $order;
     }
 

@@ -50,11 +50,14 @@
 
                 @auth
                     <ul class="nav navbar-nav navbar-right">
+                        @admin
+                        <li><a href="{{route('reset_db')}}">Сбросить проект в начальное состояние</a></li>
+                        @endadmin
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout')}}" role="button"
                                data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false" v-pre>
-                                Администратор
+                                Выйти
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
