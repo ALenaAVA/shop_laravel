@@ -1,6 +1,10 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
+Route::get('/reset','ResetController@reset')->name('reset_db');
 Route::get('/', 'MainController@index')->name('index');
 //Route::middleware(['auth'])->group(function (){
     Route::group([
