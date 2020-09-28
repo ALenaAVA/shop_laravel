@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('status',1)->get();
+        $orders = Order::where('status',1)->paginate(10);
         return view('orders.index',compact('orders'));
     }
 
