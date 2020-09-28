@@ -41,6 +41,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+
         $params = $request->all();
         unset($params['image']);
 
@@ -92,6 +93,12 @@ class ProductController extends Controller
             Storage::delete($product->image);
             $path =$request->file('image')->store('products');
             $params['image']=$path;
+        }
+
+        foreach (['hit','new','recommend']as $fieldName){
+            if(!isset($params[$fieldName])){
+                $params[$fieldName] = 0;
+            }
         }
 
         $product->update($params);
