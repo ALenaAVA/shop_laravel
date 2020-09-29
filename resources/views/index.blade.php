@@ -19,17 +19,17 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <label for="hit">
-                    <input type="checkbox" name="hit" id="hit" value="{{request()->hit}}"> Хит
+                    <input type="checkbox" name="hit" id="hit" @if(request()->has('hit')) checked @endif> Хит
                 </label>
             </div>
             <div class="col-sm-2 col-md-2">
                 <label for="new">
-                    <input type="checkbox" name="new" id="new" value="{{request()->new}}"> Новинка
+                    <input type="checkbox" name="new" id="new" @if(request()->has('new')) checked @endif> Новинка
                 </label>
             </div>
             <div class="col-sm-2 col-md-2">
                 <label for="recommend">
-                    <input type="checkbox" name="recommend" id="recommend" value="{{request()->recommend}}"> Рекомендуем
+                    <input type="checkbox" name="recommend" id="recommend" @if(request()->has('recommend')) checked @endif> Рекомендуем
                 </label>
             </div>
             <div class="col-sm-6 col-md-3">
