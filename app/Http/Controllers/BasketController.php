@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
-use App\Product;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,7 @@ class BasketController extends Controller
     public function basketPlace()
     {
         $order = Order::getOrder();
+
         if (count($order->products) < 1) {
             return redirect()->route('index');
         }

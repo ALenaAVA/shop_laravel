@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Order;
+use App\Models\Order;
 use Closure;
 
 class BasketIsNotEmpty

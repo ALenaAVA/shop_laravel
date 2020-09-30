@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Order;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('status',1)->paginate(10);
+        $orders = Order::active()->paginate(10);
         return view('orders.index',compact('orders'));
     }
 

@@ -18,7 +18,7 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-{{--    <link href="/css/admin.css" rel="stylesheet">--}}
+    {{--    <link href="/css/admin.css" rel="stylesheet">--}}
 </head>
 <body>
 <div id="app">
@@ -29,14 +29,18 @@
             </a>
 
             <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a
-                            href="{{route('categories.index')}}">Категории</a></li>
-                    <li><a href="{{route('products.index')}}">Товары</a>
-                    </li>
-                    <li><a href="{{route('home')}}">Заказы</a></li>
-                </ul>
 
+                @auth()
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{route('home')}}">Заказы</a></li>
+                        @admin
+
+                        <li><a href="{{route('categories.index')}}">Категории</a></li>
+                        <li><a href="{{route('products.index')}}">Товары</a></li>
+                        <li><a href="{{route('reset_db')}}">Сбросить проект в начальное состояние</a></li>
+                        @endadmin
+                    </ul>
+                @endauth
                 @guest
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
@@ -50,11 +54,9 @@
 
                 @auth
                     <ul class="nav navbar-nav navbar-right">
-                        @admin
-                        <li><a href="{{route('reset_db')}}">Сбросить проект в начальное состояние</a></li>
-                        @endadmin
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout')}}" role="button"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout')}}"
+                               role="button"
                                data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false" v-pre>
                                 Выйти

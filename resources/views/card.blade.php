@@ -2,6 +2,7 @@
     <div class="thumbnail">
         <div class="labels">
 
+
             @if($product->isNew())
                 <span class="badge badge-success">New</span>
             @endif
@@ -19,11 +20,29 @@
             <p>
             <form action="{{route('basket_add',$product->id)}}" method="POST">
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
-                <a href="{{route('product',['category'=>$product->category->code,'product'=>$product->code])}}"
-                   class="btn btn-default" role="button">Подробнее</a>
+
+                <a href="{{ route('product', [isset($category) ?: $product->category->code, $product->code]) }}" class="btn btn-default"
+                   role="button">Подробнее</a>
                 @csrf
             </form>
             <p></p>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

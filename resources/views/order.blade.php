@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-lg-offset-3 col-lg-2">Имя: </label>
                             <div class="col-lg-4">
-                                <input type="text" name="name" id="name" value="" class="form-control" required>
+                                <input type="text" name="name" id="name" value="@isset($order->user) {{$order->user->name}} @endisset" class="form-control" required>
                             </div>
                         </div>
                         <br>
@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-lg-offset-3 col-lg-2">Email: </label>
                             <div class="col-lg-4">
-                                <input type="text" name="email" id="email" value="" class="form-control">
+                                <input type="text" name="email" id="email" value="@isset($order->user) {{$order->user->email}}@endisset" class="form-control">
                             </div>
                         </div>
                     </div>
