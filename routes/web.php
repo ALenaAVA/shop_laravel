@@ -37,10 +37,10 @@ Route::group(['middleware'=>'basket_not_empty',
     Route::get('','BasketController@basket')->name('basket');
     Route::get('/place','BasketController@basketPlace')->name('basket_place');
     Route::post('/confirm','BasketController@basketConfirm')->name('basket_confirm');
-    Route::post('/add/{id}','BasketController@basketAdd')->name('basket_add');
-    Route::post('/remove/{id}','BasketController@basketRemove')->name('basket_remove');
+    Route::post('/add/{product}','BasketController@basketAdd')->name('basket_add');
+    Route::post('/remove/{product}','BasketController@basketRemove')->name('basket_remove');
 });
-Route::post('/basket/add/{id}','BasketController@basketAdd')->name('basket_add');
+Route::post('/basket/add/{product}','BasketController@basketAdd')->name('basket_add');
 
 
 Route::get('/{category}','MainController@category')->name('category');

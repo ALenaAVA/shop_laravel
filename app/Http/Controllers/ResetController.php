@@ -20,7 +20,7 @@ class ResetController extends Controller
                 Storage::put($file, Storage::disk('reset')->get($file));
             }
         }
-
+        session()->flush();
         session()->flash('success', 'Проект был сброшен в начальное состояние');
         return redirect()->route('index');
     }
