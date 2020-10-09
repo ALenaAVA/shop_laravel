@@ -45,10 +45,9 @@ class MainController extends Controller
         return view('categories', compact('categories'));
     }
 
-    public function product($category, $product = null)
+    public function product($category, $productCode)
     {
-
-        $p = Product::where('code', $product)->first();
+        $p = Product::byCode($productCode)->first();
         return view('product', ['product' => $p]);
     }
 }

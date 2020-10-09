@@ -87,24 +87,32 @@
                     </div>
                 </div>
                 <br>
-
-                @foreach(['hit'=>'Хит','new'=>'Новинка','recommend'=>'Рекомендуемые'] as $field => $title)
-                    <div class="form-group row">
-
-                        @include('layouts.error',['fieldName'=> $field])
-                        <label class="col-form-label col-sm-2" for="{{$field}}">
-                            {{$title}}
-                        </label>
-                        <div class="col-sm-6">
-{{--                            <input type="hidden" name="{{$field}}"value="0">--}}
-                            <input class="form-control" type="checkbox" id="{{$field}}" name="{{$field}}"
-                                   @if($product->$field =='1') checked="checked" @endif >
-
+                    <div class="input-group row">
+                        <label for="count" class="col-sm-2 col-form-label">Кол-во: </label>
+                        <div class="col-sm-2">
+                            @include('layouts.error', ['fieldName' => 'count'])
+                            <input type="text" class="form-control" name="count" id="count"
+                                   value="@isset($product){{ $product->count }}@endisset">
                         </div>
-
                     </div>
                     <br>
-                @endforeach
+                    @foreach ([
+                    'hit' => 'Хит',
+                    'new' => 'Новинка',
+                    'recommend' => 'Рекомендуемые'
+                    ] as $field => $title)
+                        <div class="form-group row">
+                            <label for="code" class="col-sm-2 col-form-label">{{ $title }}: </label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" name="{{$field}}" id="{{$field}}"
+                                       @if(isset($product) && $product->$field === 1)
+                                       checked="'checked"
+                                    @endif
+                                >
+                            </div>
+                        </div>
+                        <br>
+                    @endforeach
                 <button class="btn btn-success">Сохранить</button>
             </div>
         </form>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['category_id', 'code', 'name', 'description', 'price', 'image', 'hit', 'new', 'recommend'];
+    protected $fillable = ['category_id', 'code', 'name', 'description', 'price', 'image', 'hit', 'new', 'recommend','count'];
 
     public function category()
     {
@@ -50,6 +50,9 @@ class Product extends Model
     {
         return $query->where('recommend', 1);
     }
+    public function scopeByCode($query,$code){
+        return $query->where('code',$code);
+    }
 
     public function isHit()
     {
@@ -65,4 +68,10 @@ class Product extends Model
     {
         return $this->recommend === 1;
     }
+
+    public function isAvailable()
+    {
+        return $this->count > 0;
+    }
+
 }
