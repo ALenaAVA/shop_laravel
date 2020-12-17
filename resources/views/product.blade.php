@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('title','Товар')
 @section('content')
+    @if(session()->has('success'))
+        <p class="alert alert-success">{{session()->get('success')}}</p>
+    @elseif(session()->has('warning'))
+        <p class="alert alert-warning">{{session()->get('warning')}}</p>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
@@ -18,7 +23,15 @@
                         @csrf
                     </form>
                 @else
-                    Не доступен
+                    <p>Не доступен</p>
+                @if($errors->get('email'))
+                        <span class="alert-danger">{{$errors->get('email')[0]}}</span>
+                @endif
+                    <form action="{{route('subscription',$product)}}" method="POST">
+                        <input type="text" name="email">
+                        <button type="submit">Отправить</button>
+                        @csrf
+                    </form>
                 @endif
 
             </div>

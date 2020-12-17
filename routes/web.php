@@ -6,6 +6,8 @@ Auth::routes();
 
 Route::get('/reset','ResetController@reset')->name('reset_db');
 Route::get('/', 'MainController@index')->name('index');
+Route::post('/subscription/{product}','MainController@subscribe')->name('subscription');
+
 //Route::middleware(['auth'])->group(function (){
     Route::group([
         'namespace'=>'Person',
@@ -32,6 +34,7 @@ Route::get('/', 'MainController@index')->name('index');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/categories','MainController@categories')->name('categories');
+
 Route::group(['middleware'=>'basket_not_empty',
                 'prefix'=>'basket'],function (){
     Route::get('','BasketController@basket')->name('basket');
