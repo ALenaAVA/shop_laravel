@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Mail\OrderCrated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id','email'];
     public function products()
     {
         return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
@@ -45,19 +47,27 @@ class Order extends Model
         session()->forget('orderId');
     }
 
-    public function saveOrder($name, $phone)
+    public function saveOrder($request)
     {
-        $this->name = $name;
-        $this->phone = $phone;
+        if(($name = $this->countAvailable(true)) != 'success'){
+            session()->flash('warning', 'Количество товара ' . $name .' ограничено');
+            return;
+        }
+
+
+
+        $this->name = $request->name;
+        $this->phone = $request->phone;
+        $this->email = $request->email;
         $this->status = 1;
         $this->save();
+        Mail::to($request->email)->send(new OrderCrated($request->name,$this));
     }
 
     public function removeProduct($product)
     {
-
         if ($this->products->contains($product->id)) {
-            $pivotRow = $this->products()->where('product_id', $product->id)->first()->pivot;
+            $pivotRow = $this->getPivotRow($product);
             if ($pivotRow->count < 2) {
                 $this->products()->detach($product->id);
             } else {
@@ -68,10 +78,14 @@ class Order extends Model
         }
     }
 
+    protected function getPivotRow($product){
+        return $this->products()->where('product_id', $product->id)->first()->pivot;
+    }
+
     public function addProduct($product)
     {
         if ($this->products->contains($product->id)) {
-            $pivotRow = $this->products()->where('product_id', $product->id)->first()->pivot;
+            $pivotRow = $this->getPivotRow($product);
             $pivotRow->count++;
 
             if ($pivotRow->count > $product->count) {
@@ -85,15 +99,37 @@ class Order extends Model
         session()->flash('success', 'Добавлен продукт ' . $product->name);
     }
 
+    public  function checkOrderCount(){
+        if(($name = $this->countAvailable())!='success'){
+            session()->flash('warning', 'Количество товара ' . $name .' недостаточно для заказа');
+            return redirect()->route('index');
+        }
+    }
     public function confirmOrder($request)
     {
         if (count($this->products) > 0) {
-            $this->saveOrder($request->name, $request->phone);
-            Order::clearOrder();
+            $this->saveOrder($request);
+            self::clearOrder();
             session()->flash('success', 'Ваш заказ принят в обработку');
         }
     }
 
+    public function countAvailable($updateCount = false){
+        foreach ($this->products as $orderProduct){
+            if ($orderProduct->count < $this->getPivotRow($orderProduct)->count){
+                return $orderProduct->name;
+            }
+
+            if($updateCount){
+                $orderProduct->count -=$this->getPivotRow($orderProduct)->count;
+            }
+
+        }
+        if($updateCount){
+            $this->products->map->save();
+        }
+        return 'success';
+    }
 
     public function getTotalPrice()
     {

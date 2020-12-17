@@ -20,13 +20,15 @@ class BasketController extends Controller
     {
         $order = Order::getOrder();
 
+        $order->checkOrderCount();
+
         return view('order', compact('order'));
     }
 
     public function basketConfirm(Request $request)
     {
         $order = Order::getOrder();
-
+       // $order->checkOrderCount();
         $order->confirmOrder($request);
 
         return redirect()->route('index');
