@@ -29,14 +29,14 @@
                                         {{ $product->name }}
                                     </a>
                                 </td>
-                                <td><span class="badge">1????????</span></td>
-                                <td>{{ $product->price }} руб.</td>
-                                <td>{{ $product->getPriceForCount()}} руб.</td>
+                                <td><span class="badge">{{$product->pivot->count}}</span></td>
+                                <td>{{ $product->price }} $</td>
+                                <td>{{ $product->getPriceForCount()}} $</td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="3">Общая стоимость:</td>
-                            <td>{{ $order->getTotalPrice() }} руб.</td>
+                            <td>{{ $order->getTotalPrice() }} $</td>
                         </tr>
                         </tbody>
                     </table>
