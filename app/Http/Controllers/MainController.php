@@ -8,13 +8,14 @@ use App\Http\Requests\ProductFiltersRequest;
 use App\Models\Product;
 use App\Models\Subscriotion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class MainController extends Controller
 {
     public function index(ProductFiltersRequest $request)
     {
-       // \Debugbar::info($request);
-       // $productsQuery = Product::query();
+        // \Debugbar::info($request);
+        // $productsQuery = Product::query();
         $productsQuery = Product::with('category');
         if ($request) {
             if ($request->filled('price_from')) {
@@ -30,7 +31,7 @@ class MainController extends Controller
             }
         }
 
-        $products = $productsQuery->paginate(6)->withPath('?'.$request->getQueryString());
+        $products = $productsQuery->paginate(6)->withPath('?' . $request->getQueryString());
 
         return view('index', compact('products'));
     }
@@ -53,13 +54,21 @@ class MainController extends Controller
         return view('product', ['product' => $p]);
     }
 
-    public function subscribe(SubscriptionRequest $request, Product $product){
+    public function subscribe(SubscriptionRequest $request, Product $product)
+    {
 
         Subscriotion::create([
-            'email'=>$request->email,
-            'product_id'=>$product->id,
+            'email' => $request->email,
+            'product_id' => $product->id,
         ]);
 
-        return redirect()->back()->with('success','Спасибо, мы сообщим вам о наличии товара');
+        return redirect()->back()->with('success', 'Спасибо, мы сообщим вам о наличии товара');
+    }
+
+    public function changeLocale($locale)
+    {
+        session(['locale'=>$locale]);
+        App::setLocale($locale);
+        return redirect()->back();
     }
 }
